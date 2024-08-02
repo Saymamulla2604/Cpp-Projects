@@ -35,6 +35,42 @@ public:
             cout << "Unable to open file for writing." << endl;
         }
     }
+    void show_borrowed_books() {
+        ifstream my_file("borrowedList.txt"); // Open the file for reading
+        if (my_file.is_open()) {
+            string line;
+            cout << "Borrowed Books List:" << endl;
+            while (getline(my_file, line)) {
+                cout << line << endl;
+            }
+        } else {
+            cout << "Unable to open file for reading." << endl;
+        }
+    }
+    void show_users() {
+        ifstream my_file("users.txt"); // Open the file for reading
+        if (my_file.is_open()) {
+            string line;
+            cout << "Registered List of Students:" << endl;
+            while (getline(my_file, line)) {
+                cout << line << endl;
+            }
+        } else {
+            cout << "Unable to open file for reading." << endl;
+        }
+    }
+    void show_books(){
+        ifstream my_file("books.txt"); // Open the file for reading
+        if (my_file.is_open()){
+            string line;
+            cout << "Books List:" << endl;
+            while (getline(my_file, line)) {
+                cout << line << endl;
+            }
+        } else {
+            cout << "Unable to open file for reading." << endl;
+        }
+    }
 };
 
 int main() {
@@ -104,11 +140,12 @@ int main() {
 
     } else if (choice == 2) {
         cout << "Choose any one option below: " << endl;
-        cout << "1. Add books \n2. Show student book borrow" << endl;
+        cout << "1.Add books \n2.Show student book borrowed Data\n3.Show registered users Data\n4.Show books data " << endl;
         int decision;
         cin >> decision;
 
-        if (decision == 1) {
+        if (decision == 1) 
+		{
             cout << "Enter ID:";
             cin >> book_id;
             cout << "Enter book name:";
@@ -118,22 +155,34 @@ int main() {
             string line;
             bool already_present = false;
 
-            while (getline(my_file, line)) {
+            while (getline(my_file, line)){
                 stringstream ss(line);
                 int registered_bookid;
                 string registered_bookname;
                 ss >> registered_bookid >> registered_bookname; // Extract the book ID and name from the line
-                if (registered_bookid == book_id) {
+                if (registered_bookid == book_id) 
+				{
                     already_present = true;
                     cout << "The book ID is already taken. Please try again with a correct ID." << endl;
                     break;
                 }
             }
-
             if (!already_present) {
                 library.add_book(book_id, book_name);
             }
         }
+        else if(decision == 2)
+        {
+        	library.show_borrowed_books();
+		}
+		else if(decision == 3)
+        {
+        	library.show_users();
+		}
+		else if(decision == 4)
+        {
+        	library.show_books();
+		}
     }
 
     return 0;
