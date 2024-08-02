@@ -114,14 +114,14 @@ int main() {
                     int registered_rollno;
                     string registered_name;
                     ss >> registered_rollno >> registered_name; // Extract the roll number and name from the line
-                    if (registered_rollno == roll_no) {
+                    if (registered_rollno == roll_no){
                         already_registered = true;
                         cout << "The roll no is already taken. Please try again with a correct roll no." << endl;
                         break;
                     }
                 }
 
-                if (!already_registered) {
+                if (!already_registered){
                     library.add_user(roll_no, name);
                 }
             }
@@ -134,8 +134,27 @@ int main() {
             cin >> book_id;
             cout << "Enter book name you want to borrow:";
             cin >> book_name;
-
-            library.borrow_book(roll_no, name, book_id, book_name);
+            ifstream my_file("users.txt"); // Open the file for reading
+            string line;
+            bool already_registered = false;
+            
+			while (getline(my_file, line)) {
+                    stringstream ss(line);
+                    int registered_rollno;
+                    string registered_name;
+                    ss >> registered_rollno >> registered_name; // Extract the roll number and name from the line
+                    if (registered_rollno == roll_no){
+                        already_registered = true;
+                        library.borrow_book(roll_no, name, book_id, book_name);
+                        break;
+                    }
+                    
+                }
+              if(already_registered == false)  
+              {
+              	cout<<"Please register first"<<endl;
+			  }
+            
         }
 
     } else if (choice == 2) {
